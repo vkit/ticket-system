@@ -1,0 +1,16 @@
+{% extends 'base2.html' %}
+{% block title %}
+  
+{% endblock %}
+{% block content %}
+<p><strong><center><h3>Register Here</h3></center></strong></p>
+<div class="well"><form action="" method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" value="Create an Account">
+  </form>
+  </div>
+  {% endblock %}
+
+
+  

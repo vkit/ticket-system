@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+{% block content %}
+    <div class='container'>
+      <ol class='breadcrumb'>
+        <li><a href="{% url 'ticket:list' %}">List</a>
+        <li><a href="{% url 'ticket:detail' pk=post.id %}">Detail</a>
+        </li>
+        </li>
+      </ol>
+    </div>
+
+  <br>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+  <!-- Ticket Deatil  starts from here-->
+    <div class="panel panel-primary">
+  <div class="panel-heading">Ticket Information</div>
+  <div class="panel-body">
+
+   <div class="row">
+        <div class="col-lg-6">
+            <label for="reel_type">Title of Ticket</label>
+                <input  class="form-control" id="reel_type" type="text" name="reel_type" value="{{post.title}}" readonly>
+            <label for="rm_type">Body of Ticket</label>
+                <input  class="form-control" id="rm_type" type="text" name="rm_type" value="{{post.body}} " readonly>
+                
+
+            <label for="rm_type">Created by</label>
+                <input  class="form-control" id="rm_type" type="text" name="rm_type" value="      {{post.created_by}} " readonly>
+                </div>
+                <div class="col-lg-6">
+            <label for="rm_type">Created on</label>
+                <input  class="form-control" id="rm_type" type="text" name="rm_type" value="      {{post.created}} " readonly>
+            <label for="rm_type">Ticket id</label>
+                <input  class="form-control" id="rm_type" type="text" name="rm_type" value="      {{post.ticket_id}} " readonly>
+            <label for="rm_type">status</label>
+                <input  class="form-control" id="rm_type" type="text" name="rm_type" value="      {{post.status}} " readonly> 
+        </div>
+      </div>
+            <strong>image:</strong></strong> <img src="{{post.file.url}}" alt="image" Width="6000">                   
+       <form action="{% url 'ticket:update' pk=post.id %}" method="post">
+        {{form1.as_p}}
+        {% csrf_token %}
+        <p><button type="submit" class="btn btn-success">update</button>
+       </form>
+</div>
+         <!-- End Ticket Deatil -->
+  </div>
+</div>
+<!-- comment modal box starts from here -->
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#comment">
+      Add Comment</button>
+
+<div class="modal fade" id="comment" tabindex="-1" role="     dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="  modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Adding  Comment</h4>
+      </div>
+      <div class="modal-body">
+           <p> <form action="{% url 'ticket:comment' pk=post.id %}"  method="post">
+           {{form.as_p}}
+           {% csrf_token %}</p>
+           <p><button type="submit" class="btn btn-success">Submit</button></p>
+           </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  </div>
+  <!-- comment modal ends here -->
+    <hr>
+    <!-- comments from users starts from here -->
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Comments From Users</div>
+      <div class="panel-body">
+        {% for comment in post.ticketcomment_set.all %}
+          <hr>
+         <h1 style="font-size:80%;">Name of the User :<strong> {{comment.name}}</strong></h1>
+         <h2><p><strong><h2 style="font-size:80%;"user comment:</strong> <mark>{{comment.body}}</mark></p></h2><small> {{comment.date}}</small>
+         </hr>
+          {% endfor %}
+    </div>
+  </div>
+</div>
+  </hr>
+  <!-- comments from users ends here -->
+  
+{% endblock %}
+
+    
+    
+
+

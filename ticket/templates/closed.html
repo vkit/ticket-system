@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
+{% block content %}
+  <center><p class="text-danger">Total Closed Tickets Count :</p>
+  <span class="badge">{{count}}</span></a></center>
+   <hr>
+  <table id="example" class="table table-striped table-bordered" width="100%" cellspacing="0">
+ <thead>
+  <tr>
+    <th><center>Title of the ticket</center></th>
+    <th><center>Created on </center></th>
+    <th><center>Created_by </center></th>
+    <th><center>Ticket id </center></th>
+    <th><center>status</center></th>
+    <th><center>Body of ticket</center></th>
+    <th><center>Check the detail</center></th>
+  </tr>
+</thead>
+<tbody>
+   {% for ticket in closed_tickets %}
+  <tr>
+
+    <td class="active">{{ticket.title}}</td>
+    <td class="info">{{ticket.created}}</td>
+    <td class="warning">{{ticket.created_by}} </td>
+    <td class="success">{{ticket.ticket_id}} </td>
+    <td class="active">{{ticket.status}}</td>
+    <td class="warning">{{ticket.body}}</td>
+    <td class="warning"><a href="{% url 'ticket:detail' pk=ticket.id %}">View Detail</a></td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

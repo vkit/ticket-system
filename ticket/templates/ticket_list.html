@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}
+
+<link href="../../../../static/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../../static/css/dataTables.bootstrap.min.css" rel="stylesheet">
+{{date}}       
+    <!-- displaying pedning,totatl,closed tickets starts from here -->
+     <div class="col-lg-2 col-md-2 col-sm-2 pull-right">
+     <ul class="list-group">
+      <li class="list-group-item">
+        <span class="badge">{{total_ticket}}</span>
+        <p class="text-danger">Total Tickets:</p>
+        </li>
+      <li class="list-group-item">
+        <span class="badge">{{pending_count}}</span>
+        <p class="text-info">Pending Tickets:</p> 
+      </li>
+      <li class="list-group-item">
+        <span class="badge">{{solved_count}}</span>
+        <p class="text-warning">Solved Tickets:</p> 
+      </li>
+      <li class="list-group-item">
+        <span class="badge">{{closed_count}}</span>
+        <p class="text-success">Closed Tickets:</p> 
+      </li>
+    </ul>
+    </div>
+      <!-- displaying pedning,totatl,closed tickets ends here -->
+
+  {% endblock %}
+  {% block content %}
+ <!-- modal for add ticket starts from here -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Ticket</button>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Adding Ticket</h4>
+      </div>
+      <div class="modal-body">
+
+        <p> <form  method="post" action="." enctype="multipart/form-data">
+           {{form.as_p}}
+           {% csrf_token %}</p>
+           <p><button type="submit" class="btn btn-success">Submit</button></p>
+           </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+   <!-- modal for add ticket ends  here -->
+<hr>
+   
+   <!-- list(table) of tickets start from here -->
+<table id="example" class="table table-striped table-bordered" width="100%" cellspacing="0">
+<thead>
+  <tr>
+    <th><center>Title of the ticket</center></th>
+    <th><center>Created on </center></th>
+    <th><center>Created_by </center></th>
+    <th><center>Ticket id </center></th>
+    <th><center>status</center></th>
+    <th><center>Body of ticket</center></th>
+    <th><center>Check the detail</center></th>
+  </tr>
+</thead>
+<tbody>
+  {% for post in posts %}
+  <tr>
+    <td class="danger">{{post.title}} </td>
+    <td class="info">{{post.created}}</td>
+    <td class="warning">{{post.created_by}} </td>
+    <td class="success">{{post.ticket_id}} </td>
+    <td class="active">{{post.status}}</td>
+    <td class="warning">{{post.body}}</td>
+    <td class="warning"><a href="{% url 'ticket:detail' pk=post.id %}">View Detail</a></td>
+  </tr>
+    {% endfor %}
+  </tbody>
+</table>
+   <!-- list(table) of tickets ends here -->
+   
+    <hr>
+      </div>
+      </hr>
+      <script type="text/javascript" src="../../../../static/js/jquery-1.12.3.js"></script>
+      <script type="text/javascript" src="../../../../static/js/dataTables.bootstrap.min.js"></script>
+      <script type="text/javascript" src= "../../../../static/js/jquery.dataTables.min.js"></script>
+
+   <!-- this is jquery code for pagination -->
+<script>
+$(document).ready(function() {
+  $('#example').DataTable();
+} );
+</script>
+</hr>      
+{% endblock %}
+  <!-- jquery code for pagination ends here-->
+

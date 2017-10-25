@@ -1,0 +1,19 @@
+{% extends 'base2.html' %}
+{% load staticfiles %}
+{% block title %}
+{% endblock %}
+{% block content %}
+<hr>
+</hr>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-success"><h1><center><h4>You are logged out Succesfully</h4></center></h1>
+</li>
+<hr>
+
+<center><a href="{% url 'ticket:login'%}" class="btn btn-primary btn-lg active" role="button">Please Login</a></center>
+</a>
+</hr>
+<hr>
+</hr>
+
+{% endblock %}
